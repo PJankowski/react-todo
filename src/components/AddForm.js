@@ -5,9 +5,7 @@ export default class AddForm extends React.Component {
     event.preventDefault()
 
     var data = {
-      text: this.refs.text.value,
-      completed: false,
-      id: Date.now()
+      text: this.refs.text.value
     }
 
     this.props.addTodo(data)

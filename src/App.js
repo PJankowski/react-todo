@@ -10,32 +10,23 @@ export default class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      todos: [
-        {
-          id: 1,
-          text: "Finish todo app",
-          completed: false
-        },
-        {
-          id: 2,
-          text: "Go outside to smoke",
-          completed: false
-        },
-        {
-          id: 3,
-          text: "Go to bed",
-          completed: false
-        }
-      ]
+      todos: []
+    }
   }
 
-  addTodo (data) {
-    let id = data.id
-    let text = data.text
-    let completed = data.completed
+  componentDidMount() {
+    $.get('/todos', (data) => {
+      this.setState({
+        todos: data
+      })
+    })
+  }
 
-    this.setState({
-      todos: this.state.todos.concat({id, text, completed})
+  addTodo (todo) {
+    $.post('/todo', todo, (data) => {
+      this.setState({
+        todos: this.state.todos.concat(data)
+      })
     })
   }
 
@@ -62,8 +53,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    let todos = this.state.todos
-
     return (
       <div>
         <Header />
