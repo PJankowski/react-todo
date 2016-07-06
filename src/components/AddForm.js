@@ -16,10 +16,20 @@ export default class AddForm extends React.Component {
   }
 
   render() {
+    var marginRight = {
+      marginRight: "10px"
+    }
+
+    var marginBottom = {
+      marginBottom: "10px"
+    }
+
     return (
-      <form onSubmit={this.addTodo.bind(this)}>
-        <input type="text" ref="text" placeholder="New todo" />
-        <button type="submit">Create Todo</button>
+      <form onSubmit={this.addTodo.bind(this)} className="form-inline" style={marginBottom}>
+        <div className="form-group" style={marginRight}>
+          <input type="text" ref="text" placeholder="New todo" className="form-control" />
+        </div>
+        <button type="submit" className="btn btn-primary">Create Todo</button>
       </form>
     )
   }

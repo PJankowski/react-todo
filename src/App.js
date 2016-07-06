@@ -1,6 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+import Header from './layouts/Header'
+
 import AddForm from './components/AddForm'
 import TodoList from './components/TodoList'
 
@@ -25,7 +27,6 @@ export default class App extends React.Component {
           completed: false
         }
       ]
-    }
   }
 
   addTodo (data) {
@@ -36,6 +37,10 @@ export default class App extends React.Component {
     this.setState({
       todos: this.state.todos.concat({id, text, completed})
     })
+  }
+
+  filterTodos(todo) {
+    return todo.completed === false
   }
 
   completeTodo(todo) {
@@ -52,12 +57,22 @@ export default class App extends React.Component {
 
   }
 
+  deleteTodo(todo) {
+    console.log(todo)
+  }
+
   render() {
+    let todos = this.state.todos
+
     return (
       <div>
-        <AddForm addTodo={this.addTodo.bind(this)}/>
+        <Header />
 
-        <TodoList todos={this.state.todos} completeTodo={this.completeTodo.bind(this)}/>
+        <div className="container">
+          <AddForm addTodo={this.addTodo.bind(this)}/>
+
+          <TodoList todos={this.state.todos.filter(this.filterTodos)} completeTodo={this.completeTodo.bind(this)} deleteTodo={this.deleteTodo.bind(this)}/>
+        </div>
       </div>
     )
   }
